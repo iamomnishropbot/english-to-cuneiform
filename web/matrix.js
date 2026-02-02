@@ -23,6 +23,8 @@ window.addTranslatedText = (translated) => {
 };
 
 function drawMatrix() {
+  function drawMatrix() {
+  // Slightly fade previous frame for trail effect
   ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -30,12 +32,18 @@ function drawMatrix() {
 
   for (let i = 0; i < drops.length; i++) {
     let char;
-    // Occasionally use the translation queue if available
+
+    // Use translation queue if available
     if (translationQueue.length && Math.random() > 0.7) {
       char = translationQueue.shift();
     } else {
       char = glyphs[Math.floor(Math.random() * glyphs.length)];
     }
+
+    // Glow and pulsate effect
+    const glowIntensity = 10 + 10 * Math.sin(Date.now() / 200 + i); // pulsate
+    ctx.shadowColor = "#00ff9c";
+    ctx.shadowBlur = glowIntensity;
 
     ctx.fillStyle = "#00ff9c";
     ctx.fillText(char, i * fontSize, drops[i] * fontSize);
@@ -47,10 +55,3 @@ function drawMatrix() {
     drops[i]++;
   }
 }
-
-setInterval(drawMatrix, 33);
-
-window.addEventListener("resize", () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
