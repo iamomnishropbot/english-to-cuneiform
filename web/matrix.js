@@ -2,6 +2,14 @@ let glowMultiplier = 1;       // Controls pulsation intensity
 let lastActivity = Date.now(); // Track last typing/translation
 const glowDecay = 0.95;       // How fast the glow fades back
 
+window.addTranslatedText = (translated) => {
+  translationQueue.push(...translated.split(""));
+  
+  // Boost glow based on length of translation
+  glowMultiplier += Math.min(translated.length / 5, 5);
+  lastActivity = Date.now();
+};
+
 
 import { cuneiformMap } from "./cuneiformMap.js";
 
