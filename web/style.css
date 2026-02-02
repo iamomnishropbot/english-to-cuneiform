@@ -32,3 +32,16 @@ canvas {
   left: 0;
   z-index: -1; /* behind UI */
 }
+body {
+  background: radial-gradient(circle at center, #000000 0%, #050505 100%);
+  color: #00ff9c;
+  font-family: monospace;
+  padding: 40px;
+  overflow: hidden;
+}
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
