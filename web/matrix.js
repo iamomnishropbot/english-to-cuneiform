@@ -1,3 +1,8 @@
+let glowMultiplier = 1;       // Controls pulsation intensity
+let lastActivity = Date.now(); // Track last typing/translation
+const glowDecay = 0.95;       // How fast the glow fades back
+
+
 import { cuneiformMap } from "./cuneiformMap.js";
 
 const canvas = document.createElement("canvas");
