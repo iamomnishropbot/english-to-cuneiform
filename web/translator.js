@@ -14,3 +14,10 @@ window.run = () => {
   window.addTranslatedText(output);
 };
 
+const typingSpeedFactor = 2; // adjust speed of glyphs per typed letter
+
+document.getElementById("input").addEventListener("input", () => {
+  for (let i = 0; i < typingSpeedFactor; i++) {
+    window.addTranslatedText(" "); // add small bursts to speed up fall
+  }
+});
