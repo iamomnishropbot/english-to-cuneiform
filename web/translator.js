@@ -1,12 +1,16 @@
-import { cuneiformMap } from "./cuneiformMap.js";
+;import { cuneiformMap } from "./cuneiformMap.js";
 
 window.run = () => {
-  const text = document.getElementById("input").value.toLowerCase();
+  const input = document.getElementById("input").value.toLowerCase();
   let output = "";
 
-  for (let char of text) {
+  for (let char of input) {
     output += cuneiformMap[char] || "𒀭";
   }
 
   document.getElementById("output").textContent = output;
+
+  // Send translation to the matrix rain
+  window.addTranslatedText(output);
 };
+
