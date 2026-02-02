@@ -36,7 +36,6 @@ window.addTranslatedText = (translated) => {
 };
 
 function drawMatrix() {
-  function drawMatrix() {
   // Slightly fade previous frame for trail effect
   ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -53,18 +52,21 @@ function drawMatrix() {
       char = glyphs[Math.floor(Math.random() * glyphs.length)];
     }
 
-    // Glow and pulsate effect
-    const glowIntensity = 10 + 10 * Math.sin(Date.now() / 200 + i); // pulsate
-    ctx.shadowColor = "#00ff9c";
-    ctx.shadowBlur = glowIntensity;
+   const baseGlow = 10;
+const pulsate = 10 * Math.sin(Date.now() / 200 + i);
 
-    ctx.fillStyle = "#00ff9c";
-    ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+// Multiply pulsation by current glowMultiplier
+ctx.shadowBlur = (baseGlow + pulsate) * glowMultiplier;
+ctx.shadowColor = "#00ff9c";
+// Decay glowMultiplier gradually
+glowMultiplier *= glowDecay;
+if (glowMultiplier < 1) glowMultiplier = 1;
+const typingSpeedFactor = 2;
 
-    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-      drops[i] = 0;
-    }
+document.getElementById("input").addEventListener("input", () => {
+  // Boost glow slightly for each typed character
+  glowMultiplier += typingSpeedFactor;
+  lastActivity = Date.now();
+});
 
-    drops[i]++;
-  }
-}
+   
